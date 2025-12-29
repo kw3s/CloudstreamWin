@@ -1,0 +1,64 @@
+I’ll solidify Option A as a concrete stack (TypeScript + React + an Electron shell), then scan the Android `app/` and `library/` modules to map search, details, playback, and plugin flows into a Windows-agnostic architecture before we scaffold anything. I’ll keep notes focused and then present you with a concise architecture summary plus the proposed TypeScript/Electron project structure.
+
+[3 tools called]
+
+Nice, we’ll go with Option A.
+
+### 1. Concrete tech choice
+
+- **Language/stack**: **TypeScript + React** for the UI, with an **Electron shell** for Windows desktop.
+  - **Why Electron** over Tauri/Kotlin Desktop:
+    - Only needs **Node + npm/pnpm/yarn** (no heavy VS workloads, no Rust toolchain).
+    - Easy to mirror Android’s composable UI and MVVM-ish patterns in React.
+    - Straightforward plugin loading via the Node filesystem + dynamic imports.
+
+### 2. How the existing design maps over
+
+From the code we just looked at:
+
+- **Plugin system**
+  - Android:
+    - `BasePlugin` registers `MainAPI` and `ExtractorApi` into `APIHolder` and `extractorApis`.
+    - `MainAPI` exposes methods for `search`, `quickSearch`, `load`, `getMainPage`, etc., plus metadata (name, mainUrl, supported types, timeouts).
+  - Windows/TS:
+    - Define a **`MainApi` interface** and **`BasePlugin` class** in TypeScript.
+    - Keep a global **`ApiHolder`** module that tracks all registered providers and extractors (mirroring `APIHolder`).
+    - Plugins become **JS/TS modules** on disk that export a `load()` function and call `registerMainApi` / `registerExtractorApi`.
+
+- **Search flow**
+  - Android:
+    - `SearchViewModel.search()` loops through active `MainAPI`s, calls `search/quickSearch`, merges results into `ExpandableSearchList`, posts `Resource.Loading/Success`.
+    - `SearchFragment` observes `searchResponse` and `currentSearch` to render lists and loading states.
+  - Windows/TS:
+    - A **`SearchStore` or `SearchViewModel`** (React state + hooks or Zustand/Redux) that:
+      - Takes a query, calls all enabled `MainApi.search()` functions in parallel.
+      - Merges and flattens results similar to `bundleSearch`.
+      - Exposes `state = { status: 'idle' | 'loading' | 'success' | 'error', results, perProviderResults }`.
+    - A **`SearchPage` React component** that binds a search box and results grid/list to that state.
+
+### 3. Proposed Windows project structure (high level)
+
+- **Root** (new app folder, e.g. `Cloudstream.Electron/`):
+  - `main/` (Electron **main process**)
+    - `main.ts` – app entry, window creation.
+    - `ipc/` – IPC handlers (search, load details, play, etc.).
+    - `plugins/` – plugin loading, similar to `APIHolder` + `BasePlugin`.
+  - `renderer/` (React **UI**)
+    - `pages/`
+      - `SearchPage.tsx` – mirrors `SearchFragment`.
+      - `DetailsPage.tsx` – mirrors result/details screen.
+      - `PlayerPage.tsx` – mirrors the player fragment.
+    - `viewmodels/` or `stores/`
+      - `SearchStore.ts` – logic port of `SearchViewModel`.
+      - `DetailsStore.ts`, `PlayerStore.ts`.
+    - `components/` – cards, lists, filters, etc.
+  - `core/`
+    - `models/` – `SearchResponse`, `LoadResponse`, `Episode`, etc. in TS.
+    - `api/` – `MainApi`, `ExtractorApi`, `ApiHolder`, error types.
+    - `services/` – HTTP client, persistence (bookmarks, resume), settings.
+
+### 4. Next step
+
+If you’re good with **TypeScript + React + Electron** and the structure above, the next step is to:
+- Lock in a **minimal initial Electron + Vite/React scaffold**, and
+- Start by **porting the core models and provider interfaces** (`SearchResponse`, `LoadResponse`, `Episode`, `MainApi`, `BasePlugin`, `ApiHolder`) before touching UI.

@@ -1,0 +1,319 @@
+.plugins-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100%;
+    background-color: #242424;
+    color: #fff;
+}
+
+/* Tab Navigation */
+.tabs-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -2px;
+}
+
+.tab-button:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.tab-button.active {
+    color: #fff;
+    border-bottom-color: #667eea;
+}
+
+.plugins-page h1 {
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.plugins-page h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.error-message {
+    background-color: #ff4444;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Add Repository Section */
+.add-repository-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.add-repo-form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.repo-url-input,
+.repo-name-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    pointer-events: auto;
+    z-index: 1;
+    position: relative;
+}
+
+.repo-url-input:focus,
+.repo-name-input:focus {
+    border-color: #667eea;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+}
+
+.repo-url-input::placeholder,
+.repo-name-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.add-repo-button {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add-repo-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Repositories List */
+.repositories-section {
+    margin-bottom: 2rem;
+}
+
+.repositories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.repository-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.repo-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+}
+
+.repo-url {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.remove-repo-button {
+    padding: 0.5rem 1rem;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.remove-repo-button:hover {
+    background: #cc0000;
+}
+
+/* Plugins List */
+.plugins-section {
+    margin-bottom: 2rem;
+}
+
+.plugins-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.plugin-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.plugin-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.plugin-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+}
+
+.plugin-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+.plugin-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+.plugin-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.plugin-status.status-0 {
+    background: #ff4444;
+    color: white;
+}
+
+.plugin-status.status-1 {
+    background: #44ff44;
+    color: #000;
+}
+
+.plugin-status.status-2 {
+    background: #ffaa00;
+    color: #000;
+}
+
+.plugin-status.status-3 {
+    background: #aa44ff;
+    color: white;
+}
+
+.plugin-version,
+.plugin-language,
+.plugin-authors {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.plugin-actions {
+    margin-top: 1rem;
+}
+
+.install-button,
+.uninstall-button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.install-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.install-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.install-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.uninstall-button {
+    background: #ff4444;
+    color: white;
+}
+
+.uninstall-button:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* Installed Plugins */
+.installed-plugins-section {
+    margin-bottom: 2rem;
+}
+
+.installed-plugins-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.installed-plugin-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.installed-plugin-item .plugin-info h3 {
+    margin: 0;
+    color: #fff;
+}
+
+.empty-state {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+}
+

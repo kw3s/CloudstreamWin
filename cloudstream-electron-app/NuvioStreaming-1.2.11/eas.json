@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 16.2.2",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true,
+      "extends": "apk",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease",
+        "image": "latest"
+      }
+    },
+    "release": {
+      "distribution": "store",
+      "android": {
+        "buildType": "app-bundle"
+      }
+    },
+    "apk": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
