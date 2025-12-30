@@ -8,6 +8,8 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+    google()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -27,8 +29,8 @@ dependencies {
     // Logging
     implementation("ch.qos.logback:logback-classic:1.4.11")
     
-    // DEX -> JAR conversion
-    implementation("com.googlecode.dex2jar:dex-tools:2.1")
+    // DEX -> JAR conversion (via JitPack)
+    implementation("com.github.pxb1988.dex2jar:dex-tools:2.1")
 
     // Android stubs (required for providers compiled against Android SDK)
     implementation("org.robolectric:android-all:12.1.0-robolectric-8229987")
